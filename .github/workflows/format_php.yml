@@ -1,6 +1,6 @@
 name: Format (PHP)
 
-on: push
+on: [push, pull_request]
     # push:
     #     branches:
     #         - 'master'
