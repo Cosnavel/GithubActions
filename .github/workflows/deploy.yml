@@ -1,0 +1,45 @@
+name: Deploy CI
+
+
+
+on: [workflow_dispatch]
+
+
+
+jobs:
+
+    build:
+
+        runs-on: ubuntu-latest
+
+
+
+        steps:
+
+            - uses: actions/checkout@v2
+
+            - name: Install modules
+
+              run: npm install
+
+            - name: build bundle
+
+              run: npm run build
+
+    deployment:
+
+        needs: [build]
+
+        name: Deploy To Ploi
+
+        runs-on: ubuntu-latest
+
+        steps:
+
+            - uses: fjogeleit/http-request-action@master
+
+              with:
+
+                  url: ${{ secrets.DEPLOY_WEBHOOK }}
+
+                  method: 'POST'
